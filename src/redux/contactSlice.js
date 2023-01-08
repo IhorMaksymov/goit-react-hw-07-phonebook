@@ -30,10 +30,7 @@ const contactsSlice = createSlice({
         [addContact.fulfilled](state, action) {
             state.isLoading = false;
             state.error = null;
-            state.items.push({
-                name: action.payload.name,
-                phone: action.payload.number,
-            });
+            state.items.push(action.payload);
         },
         [addContact.rejected](state, action) {
             state.isLoading = false;

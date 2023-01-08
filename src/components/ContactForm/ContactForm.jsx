@@ -1,9 +1,10 @@
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { FieldForm, Label } from './ContactFormStyled';
 import { addContact } from 'services/api';
+import { getContacts } from 'redux/selectors';
 
 const schema = yup.object().shape({
     name: yup.string().required(),
@@ -12,13 +13,19 @@ const schema = yup.object().shape({
 
 const ContactForm = () => {
 
+    const contacts = useSelector(getContacts)
     const dispatch = useDispatch();
 
     const handleSubmit = (value, { resetForm }) => {
-        console.log(value);
-        dispatch(addContact(value));
+        includesContact(value.name) ?
+            alert(`${value.name} is alredy in your contacts`) :
+            dispatch(addContact(value));
         resetForm();
-    }
+    };
+
+    const includesContact = (contactName) => {
+        return contacts.find(contact => contact.name.toLowerCase() === contactName.toLowerCase());
+    };
 
     return (
         <Formik

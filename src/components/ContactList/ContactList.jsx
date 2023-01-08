@@ -19,10 +19,10 @@ const ContactList = () => {
 
     return (
         <List>
-            {filtredContact.map(({ id, name, number }) => 
+            {filtredContact.map(({ id, name, phone }) => 
                 <Item key={id}>
                     <Text>{name}</Text>
-                    <Text>{number}</Text>
+                    <Text>{phone}</Text>
                     <Btn type='button' onClick={() => dispatch(deleteContact(id))} >Delete</Btn>
                 </Item>
             )}
